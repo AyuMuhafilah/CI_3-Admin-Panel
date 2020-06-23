@@ -8,11 +8,12 @@
 </head>
 
 <body>
-    <form action="<?= base_url('Auth/login') ?>" method="post">
+    <form action="<?= base_url('Auth') ?>" method="post">
         <input type="text" name="username" placeholder="username">
-        <input type="text" name="password">
+        <input type="password" name="password" placeholder="password">
         <button type="submit">Submit</button>
     </form>
+    <?= $this->session->flashdata('pesan') ?>
 </body>
 
 </html>
