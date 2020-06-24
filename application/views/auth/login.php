@@ -13,7 +13,7 @@
         <input type="password" name="password" placeholder="password">
         <button type="submit">Submit</button>
     </form>
-    <?= $this->session->flashdata('pesan') ?>
+    <?= $this->session->flashdata('error_message') ?>
 </body>
 
 </html>

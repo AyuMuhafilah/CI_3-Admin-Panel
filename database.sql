@@ -5,6 +5,7 @@ CREATE DATABASE DB_AUTH;
 USE DB_AUTH;
 
 CREATE TABLE `users` (id bigint(20) PRIMARY KEY AUTO_INCREMENT, username varchar(128), `password` varchar(255));
+INSERT INTO `users` VALUES(null, 'fahmi', '123');
 
 CREATE TABLE `roles` (id int(11) PRIMARY KEY AUTO_INCREMENT, `role` varchar(64));
 
