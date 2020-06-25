@@ -17,8 +17,8 @@ class Auth extends CI_Controller
         $password = $this->input->post('password');
 
         // Query ke database
-        $this->load->model('User');
-        $user = $this->User->Find(['username' => $username]); // data user yang masih berbentuk query result
+        $this->load->model('User_model', 'user_model');
+        $user = $this->user_model->Find(['username' => $username]); // data user yang masih berbentuk query result
         $data_user = $user->row_array(); // data user yang sudah menjadi array
 
         // Nested if. Jika user input valid >> jika data user ditemukan >> jika password benar
