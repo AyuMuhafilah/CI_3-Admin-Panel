@@ -20,10 +20,12 @@ class Auth extends BAPLI_Controller
         $username = $this->input->post('username');
         $password = $this->input->post('password');
 
-        // Query ke database
-        $this->load->model('User_model', 'user_model');
-        $user = $this->user_model->Find(['username' => $username]); // data user yang masih berbentuk query result
-        $data_user = $user->row_array(); // data user yang sudah menjadi array
+        // Query ke database jika user input valid
+        if ($this->form_validation->run()) {
+            $this->load->model('User_model', 'user_model');
+            $user = $this->user_model->Find(['username' => $username]); // data user yang masih berbentuk query result
+            $data_user = $user->row_array(); // data user yang sudah menjadi array
+        }
 
         // Nested if. Jika user input valid >> jika data user ditemukan >> jika password benar
         if (($this->form_validation->run()) && ($user->num_rows() > 0) && ($data_user['password'] == $password)) {
@@ -36,5 +38,11 @@ class Auth extends BAPLI_Controller
             // Tampilkan halaman login
             $this->load->view('auth/login');
         }
+    }
+
+    public function logout()
+    {
+        $this->session->sess_destroy(); // Hancurkan session
+        redirect('login');
     }
 }
