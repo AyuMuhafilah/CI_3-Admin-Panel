@@ -5,6 +5,10 @@ class Auth extends CI_Controller
 {
     public function index()
     {
+        // Tampilkan profiler
+        // Profiler di php 7.4.* memunculkan error, harus menunggu codeigniter 3.1.12
+        $this->output->enable_profiler(TRUE);
+
         // Load library
         $this->load->library('form_validation');
 
@@ -26,8 +30,8 @@ class Auth extends CI_Controller
             $this->session->set_userdata('user', $data_user['id']); // Menyimpan session
             redirect('Admin');
         } else {
-            // Tampilkan pesan hanya jika form sudah di submit
-            if ($this->input->method() == 'post') $this->session->set_flashdata('error_message', 'Username dan Password tidak cocok');
+            // Tampilkan pesan hanya jika user input telah di validasi
+            if ($this->form_validation->run()) $this->session->set_flashdata('error_message', 'Username atau Password salah!!!');
 
             // Tampilkan halaman login
             $this->load->view('auth/login');
