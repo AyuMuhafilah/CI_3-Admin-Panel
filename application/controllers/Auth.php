@@ -30,7 +30,7 @@ class Auth extends BAPLI_Controller
         // Nested if. Jika user input valid >> jika data user ditemukan >> jika password benar
         if (($this->form_validation->run()) && ($user->num_rows() > 0) && ($data_user['password'] == $password)) {
             $this->session->set_userdata(AUTH_USERDATA, $data_user['id']); // Menyimpan session
-            redirect('Admin');
+            redirect('Home');
         } else {
             // Tampilkan pesan hanya jika user input telah di validasi
             if ($this->form_validation->run()) $this->session->set_flashdata('error_message', 'Username atau Password salah!!!');

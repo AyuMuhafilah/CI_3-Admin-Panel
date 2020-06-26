@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Admin extends BAPLI_Controller
+class Home extends BAPLI_Controller
 {
     public function index()
     {
