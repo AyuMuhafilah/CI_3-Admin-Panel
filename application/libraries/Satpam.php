@@ -24,7 +24,7 @@ class Satpam
     /**
      * Fungsi yang di panggil pertamakali
      * 
-     * Digunakan untuk meng-assign ci super-object
+     * Digunakan untuk meng-assign CI super-object
      */
     public function __construct()
     {
@@ -32,14 +32,14 @@ class Satpam
     }
 
     /**
-     * Luncurkan satpam
+     * Kerahkan satpam
      * 
      * Beri perintah pada satpam untuk berjaga terhadap user yang tidak memiliki hak akses
      * 
      * @param bool $module Cek hak akses module dari database
      * @return void
      */
-    public function jaga(bool $module = false)
+    public function jaga(bool $module = true)
     {
         // Jika user sudan login
         if ($user_id = $this->CI->session->userdata(AUTH_USERDATA)) {
