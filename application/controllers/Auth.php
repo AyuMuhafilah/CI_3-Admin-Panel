@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Auth extends CI_Controller
+class Auth extends BAPLI_Controller
 {
     public function index()
     {
@@ -27,7 +27,7 @@ class Auth extends CI_Controller
 
         // Nested if. Jika user input valid >> jika data user ditemukan >> jika password benar
         if (($this->form_validation->run()) && ($user->num_rows() > 0) && ($data_user['password'] == $password)) {
-            $this->session->set_userdata('user', $data_user['id']); // Menyimpan session
+            $this->session->set_userdata(AUTH_USERDATA, $data_user['id']); // Menyimpan session
             redirect('Admin');
         } else {
             // Tampilkan pesan hanya jika user input telah di validasi

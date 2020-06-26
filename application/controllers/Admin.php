@@ -1,10 +1,12 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Admin extends CI_Controller
+class Admin extends BAPLI_Controller
 {
     public function index()
     {
-        echo "Selamat Datang" . $this->session->userdata('user');
+        $this->satpam(); // Penjaga Keamanan
+
+        echo "Selamat Datang" . $this->session->userdata(AUTH_USERDATA);
     }
 }
