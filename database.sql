@@ -11,7 +11,9 @@ CREATE TABLE `users` (`id` bigint(20) PRIMARY KEY AUTO_INCREMENT, username varch
 INSERT INTO `users` VALUES(null, 'developer', '123', 1);
 
 CREATE TABLE `modules` (`id` int(11) PRIMARY KEY AUTO_INCREMENT, `module` varchar(64), `url` varchar(128), `base_url` tinyint(1), `other` text);
-INSERT INTO `modules` VALUES(null, 'Dashboard', 'Home', 1, '');
+INSERT INTO `modules` VALUES(null, 'Home', 'Admin', 1, '');
+INSERT INTO `modules` VALUES(null, 'Menu Management', 'Module', 1, '');
 
 CREATE TABLE `module_role` (`id` int(11) PRIMARY KEY AUTO_INCREMENT, `module_id` int(11), `role_id` int(11), FOREIGN KEY (`module_id`) REFERENCES `modules` (`id`), FOREIGN KEY (`role_id`) REFERENCES `roles`(`id`));
 INSERT INTO `module_role` VALUES(null, 1, 1);
+INSERT INTO `module_role` VALUES(null, 2, 1);

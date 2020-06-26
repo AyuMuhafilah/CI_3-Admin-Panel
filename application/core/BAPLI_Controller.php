@@ -18,24 +18,31 @@ class BAPLI_Controller extends CI_Controller
     /**
      * Penjaga keamanan aplikasi
      * 
-     * @var $satpam
-     */
-    private $satpam;
-
-    /**
-     * Penjaga keamanan aplikasi
+     * Menjaga sistem dari user yang tidak memiliki hak akses
      * 
-     * Menjaga sistem dari user yang belum login
-     * 
-     * @param bool $aktif
      * @return void
      */
-    public function satpam(bool $aktif = true)
+    public function satpam()
     {
-        $this->satpam = $aktif;
+        // Jika user sudan login
+        if ($user_id = $this->session->userdata(AUTH_USERDATA)) {
 
-        // Jika user belum login
-        if ($this->satpam && !$this->session->userdata(AUTH_USERDATA)) {
+            // Ambil URI string nya yang asli dan yang routed
+            $uri = $this->uri->uri_string();
+            $ruri = $this->uri->ruri_string();
+
+            // variabel untuk izin module
+            $pass = false;
+
+            // Jika user berhak mengakses menu
+            $modules = $this->module_model->auth($user_id)->result_array();
+            foreach ($modules as $module) {
+                if (($module['url'] != $uri) && ($module['url'] != $ruri)) continue; // periksa setiap izin module pada database
+                $pass = true; // jika ada izin maka set variabel pass menjadi true
+            }
+
+            if (!$pass) $this->output->set_status_header(403); // jika tidak ada izin maka tampilkan error 403
+        } else {
             redirect('login');
         }
     }

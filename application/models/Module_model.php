@@ -40,7 +40,7 @@ class Module_model extends CI_Model
         $role_user = $this->user_model->find(['id' => $user_id])->row_array()['role_id'];
 
         $this->db->where('role_id', $role_user);
-        $this->db->join('modules', 'modules.id = module_id');
+        $this->db->join($this->table, 'modules.id = module_id');
         return $this->db->get('module_role');
     }
 }

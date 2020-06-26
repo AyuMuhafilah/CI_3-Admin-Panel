@@ -5,12 +5,18 @@ class Admin extends BAPLI_Controller
 {
     public function index()
     {
-        $this->satpam(); // Penjaga Keamanan
+        $this->output->enable_profiler(TRUE);
 
-        $this->load->model('Module_model', 'module_model');
+        $this->satpam(); // Penjaga Keamanan
 
         $user_id = $this->session->userdata(AUTH_USERDATA);
         $data['modules'] = $this->module_model->auth($user_id)->result_array();
+
+        $data['modules'] = array_map(function ($module) {
+            // Jika base_url == true (pada database) maka tambahkan base_url di data url tersebut
+            $module['url'] = ($module['base_url']) ? base_url($module['url']) : $module['url'];
+            return $module;
+        }, $data['modules']);
 
         // View untuk halaman admin
         // Meload view berdasarkan urutannya
