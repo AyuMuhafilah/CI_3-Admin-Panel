@@ -23,7 +23,7 @@ class Auth extends BAPLI_Controller
         // Query ke database jika user input valid
         if ($this->form_validation->run()) {
             $this->load->model('User_model', 'user_model');
-            $user = $this->user_model->Find(['username' => $username]); // data user yang masih berbentuk query result
+            $user = $this->user_model->find(['username' => $username]); // data user yang masih berbentuk query result
             $data_user = $user->row_array(); // data user yang sudah menjadi array
         }
 

@@ -7,6 +7,17 @@ class Admin extends BAPLI_Controller
     {
         $this->satpam(); // Penjaga Keamanan
 
-        echo "Selamat Datang" . $this->session->userdata(AUTH_USERDATA);
+        $this->load->model('Module_model', 'module_model');
+
+        $user_id = $this->session->userdata(AUTH_USERDATA);
+        $data['modules'] = $this->module_model->auth($user_id)->result_array();
+
+        // View untuk halaman admin
+        // Meload view berdasarkan urutannya
+        // Diubah sesuai kebutuhan
+        $this->load->view('admin/head');
+        $this->load->view('admin/menus', $data);
+        $this->load->view('admin/content');
+        $this->load->view('admin/foot');
     }
 }

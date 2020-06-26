@@ -10,7 +10,7 @@ class User_model extends CI_Model
      * 
      * @return CI_DB_result::class query result
      */
-    public function All()
+    public function all()
     {
         return $this->db->get($this->table);
     }
@@ -21,7 +21,7 @@ class User_model extends CI_Model
      * @param array $find
      * @return CI_DB_result::class query result
      */
-    public function Find(array $find)
+    public function find(array $find)
     {
         return $this->db->get_where($this->table, $find);
     }

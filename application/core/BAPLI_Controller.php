@@ -10,7 +10,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @package		CodeIgniter
  * @subpackage	Libraries
  * @category	Libraries
- * @author		EllisLab Dev Team
+ * @author		Fany Muhammad Fahmi Kamilah
  * @link		https://codeigniter.com/user_guide/general/controllers.html
  */
 class BAPLI_Controller extends CI_Controller
