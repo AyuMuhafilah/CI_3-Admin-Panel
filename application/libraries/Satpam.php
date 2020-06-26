@@ -28,7 +28,6 @@ class Satpam
      */
     public function __construct()
     {
-        // Assign the CodeIgniter super-object
         $this->CI = &get_instance();
     }
 
@@ -45,7 +44,8 @@ class Satpam
         // Jika user sudan login
         if ($user_id = $this->CI->session->userdata(AUTH_USERDATA)) {
 
-            if (!$module) return; // Jika satpam tidak ditugaskan untuk menjaga akses module
+            // Jika satpam tidak ditugaskan untuk menjaga akses module maka tugas satpam selesai
+            if (!$module) return;
 
             // Ambil URI string nya yang asli dan yang routed
             $uri = $this->CI->uri->uri_string();

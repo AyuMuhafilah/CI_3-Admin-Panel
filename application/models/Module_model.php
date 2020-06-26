@@ -34,13 +34,17 @@ class Module_model extends CI_Model
      */
     public function auth(int $user_id)
     {
-        $this->load->model('User_model', 'user_model'); // Butuh model user
+        $this->load->model('User_model', 'user_model');
 
+        // Query builder start
         $this->db->select('role_id');
-        $role_user = $this->user_model->find(['id' => $user_id])->row_array()['role_id'];
+        $role_user = $this->user_model->find(['id' => $user_id])->row_array()['role_id']; // ambil role_user
+        // Query builder stop
 
+        // Query builder start
         $this->db->where('role_id', $role_user);
         $this->db->join($this->table, 'modules.id = module_id');
         return $this->db->get('module_role');
+        // Query builder stop
     }
 }
