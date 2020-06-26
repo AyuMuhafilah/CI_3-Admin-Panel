@@ -25,7 +25,7 @@ class BAPLI_Controller extends CI_Controller
     /**
      * Penjaga keamanan aplikasi
      * 
-     * Merubah status keamanan menjadi aktif/tidak
+     * Menjaga sistem dari user yang belum login
      * 
      * @param bool $aktif
      * @return void
