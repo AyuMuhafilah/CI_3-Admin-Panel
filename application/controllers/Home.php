@@ -22,10 +22,10 @@ class Home extends CI_Controller
 
         // View untuk halaman admin
         // Meload view berdasarkan urutannya
-        $this->load->view('admin/head');
-        $this->load->view('admin/menus', $data);
-        $this->load->view('admin/content');
-        $this->load->view('admin/foot');
+        $this->load->view('home/head');
+        $this->load->view('home/menus', $data);
+        $this->load->view('home/content');
+        $this->load->view('home/foot');
         // ^^ Diubah sesuai kebutuhan
     }
 }
