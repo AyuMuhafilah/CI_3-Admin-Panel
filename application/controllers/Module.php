@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Module extends BAPLI_Controller
+class Module extends CI_Controller
 {
     public function index()
     {
-        $this->satpam();
+        $this->satpam->jaga();
     }
 }

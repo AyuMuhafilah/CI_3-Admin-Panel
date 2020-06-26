@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Home extends BAPLI_Controller
+class Home extends CI_Controller
 {
     public function index()
     {
         $this->output->enable_profiler(TRUE);
 
-        $this->satpam(); // Penjaga Keamanan
+        $this->satpam->jaga(); // Penjaga Keamanan
 
         $user_id = $this->session->userdata(AUTH_USERDATA);
         $data['modules'] = $this->module_model->auth($user_id)->result_array();
