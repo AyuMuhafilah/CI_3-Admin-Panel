@@ -26,6 +26,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $protocol = (!empty($_SERVER['HTTPS'])) ? 'https' : 'http';
 $port = (ENVIRONMENT == 'development') ? ':' . $_SERVER['SERVER_PORT'] : ''; // Digunakan hanya dalam masa develpoment saja
 $config['base_url'] = $protocol . '://' . $_SERVER['HTTP_HOST'] . $port . '/CI_3-Admin-Panel/';
+// $config['base_url'] = 'http://localhost/CI_3-Admin-Panel';
 
 /*
 |--------------------------------------------------------------------------

@@ -5,14 +5,14 @@ class Home extends CI_Controller
 {
     public function index()
     {
-        $this->satpam->jaga(); // Penjaga Keamanan
+        $this->satpam->jaga(false); // Penjaga Keamanan
 
         // Tampilkan profiler
         // Profiler di php 7.4.* memunculkan error, harus menunggu codeigniter 3.1.12
         $this->output->enable_profiler(TRUE);
 
         $user_id = $this->session->userdata(AUTH_USERDATA); // ambil user_id
-        $data['modules'] = $this->module_model->auth($user_id)->result_array(); // Query data modul ke database
+        $data['modules'] = $this->module_model->auth($user_id); // Query data modul ke database
 
         $data['modules'] = array_map(function ($module) {
             // Jika base_url == true (pada database) maka tambahkan base_url() di data url tersebut

@@ -21,6 +21,11 @@ class Module_role_model extends CI_Model
     public $table = 'module_role';
 
     /**
+     * Atribut bantu untuk fungsi array_map()
+     */
+    private $role_id;
+
+    /**
      * Fungsi yang di panggil pertamakali
      * 
      * Digunakan untuk me-load model yang dibutuhkan
@@ -34,19 +39,37 @@ class Module_role_model extends CI_Model
     }
 
     /**
-     * Ambil semua modul berdasarkan role_id yang berhak mengakses
+     * Modul apa saja yang bisa di akses role
      * 
      * @param int $role_id
-     * @return CI_DB_result::class query result
+     * @return array Sudah menjadi data array
      */
-    public function modules(int $role_id)
+    public function modules(int $role_id,  int $parent_id = null)
     {
-        $this->db->join($this->module_model->table, $this->module_model->table . '.id = module_id');
-        return $this->db->get_where($this->table, ['role_id' => $role_id]);
+        $this->role_id = $role_id; // assign ke variabel object agar bisa di ambil di anonymous function
+
+        // Query ke database
+        $this->db->select($this->module_model->table . '.*'); // Select * dari tabel module saja (jangan select apapun dari tabel module_role)
+        $this->db->join($this->module_model->table, $this->module_model->table . '.id = module_id'); // join dengan tabel module
+        $modules = $this->db->get_where($this->table, ['role_id' => $role_id, 'parent' => $parent_id])->result_array();
+        // ^^ SELECT modules.* FROM module_role JOIN modules ON modules.id = module_id WHERE ...
+
+        // memetakan setiap data
+        $modules = array_map(function ($module) {
+            // Jika module bukan parent maka jangan di teruskan
+            if (!$module['is_parent']) return $module;
+
+            $childs = $this->modules($this->role_id, $module['id']); // Panggil method ini secara rekursif
+            $module['childs'] = $childs; // append (tambahkan) array_key baru pada data
+            return $module; // kembalikan data ke array asli
+
+        }, $modules);
+
+        return $modules;
     }
 
     /**
-     * Ambil semua role berdasarkan module_id yang di akses
+     * role apa saja yang bisa mengakses modul
      * 
      * @param int $module_id
      * @return CI_DB_result::class query result

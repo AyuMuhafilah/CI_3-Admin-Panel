@@ -35,7 +35,7 @@ class Module_model extends CI_Model
      * Ambil data modul berdasarkan hak akses user
      * 
      * @param int $user_id
-     * @return CI_DB_result::class query result
+     * @return array Sudah menjadi data array
      */
     public function auth(int $user_id)
     {
