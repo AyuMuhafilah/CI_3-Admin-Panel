@@ -3,7 +3,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Module_model extends CI_Model
 {
-    private $table = 'modules';
+    /**
+     * Nama tabel
+     * 
+     * @var string $table
+     */
+    public $table = 'modules';
 
     /**
      * Ambil semua data
@@ -29,22 +34,19 @@ class Module_model extends CI_Model
     /**
      * Ambil data modul berdasarkan hak akses user
      * 
-     * @param array $find
+     * @param int $user_id
      * @return CI_DB_result::class query result
      */
     public function auth(int $user_id)
     {
-        $this->load->model('User_model', 'user_model');
+        // Load model jika belum di load
+        if (!$this->load->is_loaded('Module_role_model')) $this->load->model('Module_role_model', 'module_role_model');
+        if (!$this->load->is_loaded('User_model')) $this->load->model('User_model', 'user_model');
 
-        // Query builder start
+        // ambil role_user
         $this->db->select('role_id');
-        $role_user = $this->user_model->find(['id' => $user_id])->row_array()['role_id']; // ambil role_user
-        // Query builder stop
+        $role_user = $this->user_model->find(['id' => $user_id])->row_array()['role_id'];
 
-        // Query builder start
-        $this->db->where('role_id', $role_user);
-        $this->db->join($this->table, 'modules.id = module_id');
-        return $this->db->get('module_role');
-        // Query builder stop
+        return $this->module_role_model->modules($role_user);
     }
 }
