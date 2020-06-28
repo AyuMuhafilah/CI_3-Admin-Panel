@@ -14,7 +14,6 @@ class Home extends CI_Controller
         $user_id = $this->session->userdata(AUTH_USERDATA); // ambil user_id
         $data['modules'] = $this->module_model->auth($user_id); // Query data modul ke database
 
-
         // View untuk halaman admin
         // Meload view berdasarkan urutannya
         $this->load->view('home/head');

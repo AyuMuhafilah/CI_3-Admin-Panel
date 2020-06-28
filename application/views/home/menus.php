@@ -11,13 +11,13 @@
     <ul>
         <?php foreach ($modules as $module) : ?>
 
-            <li><a href="<?= $module['url'] ?>"><?= $module['module'] ?></a></li>
+            <li><a href="<?= $module['url'] ?>" class="load-to-content"><?= $module['module'] ?></a></li>
 
             <?php if (!empty($module['childs'])) : ?>
                 <ul>
 
                     <?php foreach ($module['childs'] as $child_1) : ?>
-                        <li><a href="<?= $child_1['url'] ?>"><?= $child_1['module'] ?></a></li>
+                        <li><a href="<?= $child_1['url'] ?>" class="load-to-content"><?= $child_1['module'] ?></a></li>
                     <?php endforeach ?>
 
                 </ul>
