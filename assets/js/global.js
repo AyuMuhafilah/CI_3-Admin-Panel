@@ -10,7 +10,7 @@ function initial() {
 	$('.load-to-content').on('click', function (event) {
 		event.preventDefault();
 		let url = $(this).attr('href');
-		loadcontent(url, 'post');
+		loadcontent(url, 'get');
 	});
 }
 
@@ -20,10 +20,11 @@ function initial() {
  * @param {string} url URL yang di targetkan
  * @param {string} method GET|HEAD|POST|PUT|PATCH|DELETE
  */
-function loadcontent(url, method) {
+function loadcontent(url, method, data = {}) {
 	$.ajax({
 		url: url,
 		method: method,
+		data: data,
 		async: false,
 		success: response => {
 			$('#content').html(response);

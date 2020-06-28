@@ -44,7 +44,7 @@ class Module_role_model extends CI_Model
      * @param int $role_id
      * @return array Sudah menjadi data array
      */
-    public function modules(int $role_id,  int $parent_id = null)
+    public function modules(int $role_id, int $parent_id = null)
     {
         $this->role_id = $role_id; // assign ke variabel object agar bisa di ambil di anonymous function
 
@@ -77,7 +77,7 @@ class Module_role_model extends CI_Model
     /**
      * Method untuk membantu Class Satpam mendapatkan data yang ia butuhkan.
      * 
-     * Jangan gunakan di controller, hanya untuk Class Satpam saja.
+     * Jangan gunakan di controller atau dimanapun, hanya untuk Class Satpam saja.
      * 
      * @param int $role_id
      * @return CI_DB_result::class query result

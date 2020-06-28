@@ -29,7 +29,7 @@ CREATE TABLE `modules` (
 INSERT INTO `modules` VALUES(1, 'Home', 'Home', 1, null, 0, '');
 INSERT INTO `modules` VALUES(2, 'Developer', '#', 0, null, 1, '');
 INSERT INTO `modules` VALUES(3, 'Menu Management', 'Module', 1, 2, 0, '');
-INSERT INTO `modules` VALUES(4, 'Akses Management', 'Access', 1, 2, 0, '');
+INSERT INTO `modules` VALUES(4, 'Access Management', 'Access', 1, 2, 0, '');
 
 CREATE TABLE `module_role` (
     `id` int(11) PRIMARY KEY AUTO_INCREMENT,

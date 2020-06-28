@@ -9,7 +9,7 @@ class Home extends CI_Controller
 
         // Tampilkan profiler
         // Profiler di php 7.4.* memunculkan error, harus menunggu codeigniter 3.1.12
-        $this->output->enable_profiler(TRUE);
+        // $this->output->enable_profiler(TRUE);
 
         $user_id = $this->session->userdata(AUTH_USERDATA); // ambil user_id
         $data['modules'] = $this->module_model->auth($user_id); // Query data modul ke database

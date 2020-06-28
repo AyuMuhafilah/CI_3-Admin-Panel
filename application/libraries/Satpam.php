@@ -33,7 +33,9 @@ class Satpam
     /**
      * Kerahkan satpam
      * 
-     * Beri perintah pada satpam untuk berjaga terhadap user yang tidak memiliki hak akses
+     * Beri perintah pada satpam untuk berjaga terhadap user yang tidak memiliki hak akses.
+     * 
+     * Disarankan di panggil pada awal controller untuk keamanan.
      * 
      * @param bool $module Cek hak akses module dari database
      * @param bool $ajax Request harus lewat ajax
