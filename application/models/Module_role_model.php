@@ -69,6 +69,21 @@ class Module_role_model extends CI_Model
     }
 
     /**
+     * Method untuk membantu Class Satpam mendapatkan data yang ia butuhkan.
+     * 
+     * Jangan gunakan di controller, hanya untuk Class Satpam saja.
+     * 
+     * @param int $role_id
+     * @return CI_DB_result::class query result
+     */
+    public function modulesForSatpam(int $role_id)
+    {
+        $this->db->select('url');
+        $this->db->join($this->module_model->table, $this->module_model->table . '.id = module_id');
+        return $this->db->get_where($this->table, ['role_id' => $role_id]);
+    }
+
+    /**
      * role apa saja yang bisa mengakses modul
      * 
      * @param int $module_id

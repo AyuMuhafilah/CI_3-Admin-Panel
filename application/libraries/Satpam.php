@@ -51,18 +51,22 @@ class Satpam
             $ruri = $this->CI->uri->ruri_string();
 
             // variabel untuk izin module
-            $pass = false;
+            $izin = false;
 
             // Jika user berhak mengakses module
-            $modules = $this->CI->module_model->auth($user_id)->result_array();
+            $modules = $this->CI->module_model->modulesForSatpam($user_id)->result_array();
             foreach ($modules as $module) {
                 if (($module['url'] != $uri) && ($module['url'] != $ruri)) continue; // periksa setiap izin module pada database
-                $pass = true; // jika ada izin maka set variabel pass menjadi true
+                $izin = true; // jika ada izin maka set variabel $izin menjadi true
             }
 
-            if (!$pass) $this->CI->output->set_status_header(403); // jika tidak ada izin maka tampilkan error 403
+            // jika tidak ada izin 
+            if (!$izin) {
+                $this->CI->output->set_status_header(403); // maka tampilkan error 403
+                exit;
+            }
         } else {
-            redirect('login');
+            redirect('login', 'auto', 403);
         }
     }
 }

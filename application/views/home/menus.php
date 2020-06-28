@@ -3,8 +3,8 @@
 // 
 // Kode PHP di bawah menggunakan looping untuk menampilkan module beserta child module nya.
 // Disarankan untuk tidak menggunakan recursive function untuk menampilkannya,
-// karena setiap front end tidak selalu support untuk menampilkan turunan module yang banyak.
-// Gunakan saja loop didalam loop :)
+// karena setiap desain frontend tidak selalu support untuk menampilkan turunan module yang banyak.
+// Gunakan saja nested loop :)
 ?>
 
 <div>
@@ -26,3 +26,4 @@
         <?php endforeach ?>
     </ul>
 </div>
+<hr>
