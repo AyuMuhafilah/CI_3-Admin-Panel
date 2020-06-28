@@ -54,7 +54,7 @@ class Module_role_model extends CI_Model
         $modules = $this->db->get_where($this->table, ['role_id' => $role_id, 'parent' => $parent_id])->result_array();
         // ^^ SELECT modules.* FROM module_role JOIN modules ON modules.id = module_id WHERE ...
 
-        // memetakan setiap data
+        // Menambahkan child
         $modules = array_map(function ($module) {
             // Jika module bukan parent maka jangan di teruskan
             if (!$module['is_parent']) return $module;
@@ -63,6 +63,12 @@ class Module_role_model extends CI_Model
             $module['childs'] = $childs; // append (tambahkan) array_key baru pada data
             return $module; // kembalikan data ke array asli
 
+        }, $modules);
+
+        // Menambahkan base_url() pada setiap data dengan status base_url == true
+        $modules = array_map(function ($module) {
+            $module['url'] = ($module['base_url']) ? base_url($module['url']) : $module['url'];
+            return $module;
         }, $modules);
 
         return $modules;

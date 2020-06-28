@@ -14,11 +14,6 @@ class Home extends CI_Controller
         $user_id = $this->session->userdata(AUTH_USERDATA); // ambil user_id
         $data['modules'] = $this->module_model->auth($user_id); // Query data modul ke database
 
-        $data['modules'] = array_map(function ($module) {
-            // Jika base_url == true (pada database) maka tambahkan base_url() di data url tersebut
-            $module['url'] = ($module['base_url']) ? base_url($module['url']) : $module['url'];
-            return $module;
-        }, $data['modules']);
 
         // View untuk halaman admin
         // Meload view berdasarkan urutannya
