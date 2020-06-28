@@ -36,10 +36,17 @@ class Satpam
      * Beri perintah pada satpam untuk berjaga terhadap user yang tidak memiliki hak akses
      * 
      * @param bool $module Cek hak akses module dari database
+     * @param bool $ajax Cek metode request apakah menggunakan ajax
      * @return void
      */
-    public function jaga(bool $module = true)
+    public function jaga(bool $module = true, bool $ajax = false)
     {
+        // Jika request tidek dikirim lewat XmlHttpRequest/Ajax
+        if ($ajax && !(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')) {
+            $this->CI->output->set_status_header(403); // maka tampilkan error 403
+            exit;
+        }
+
         // Jika user sudan login
         if ($user_id = $this->CI->session->userdata(AUTH_USERDATA)) {
 

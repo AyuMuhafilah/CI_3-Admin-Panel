@@ -5,6 +5,6 @@ class Module extends CI_Controller
 {
     public function index()
     {
-        $this->satpam->jaga();
+        $this->satpam->jaga(true, true);
     }
 }
