@@ -23,10 +23,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$protocol = (!empty($_SERVER['HTTPS'])) ? 'https' : 'http';
-$port = (ENVIRONMENT == 'development') ? ':' . $_SERVER['SERVER_PORT'] : ''; // Digunakan hanya dalam masa develpoment saja
-$config['base_url'] = $protocol . '://' . $_SERVER['HTTP_HOST'] . $port . '/CI_3-Admin-Panel/';
-// $config['base_url'] = 'http://localhost/CI_3-Admin-Panel';
+if (is_cli()) {
+    $base_url = 'http://localhost/Smart-Education'; // Untuk CLI
+} else {
+    $protocol = (!empty($_SERVER['HTTPS'])) ? 'https' : 'http';
+    $base_url = $protocol . '://' . $_SERVER['HTTP_HOST'] . '/Smart-Education2/'; // Untuk HTML
+}
+$config['base_url'] = $base_url;
 
 /*
 |--------------------------------------------------------------------------

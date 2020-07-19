@@ -3,7 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Model Class
-
  *
  * @package		CodeIgniter
  * @subpackage	Libraries
@@ -17,52 +16,53 @@ class MY_Model extends CI_Model
      * 
      * @var string $table
      */
-    public string $table;
+    public $table;
 
     /**
      * Nama primary key
      * 
      * @var string $primaryKey
      */
-    public string $primaryKey = 'id';
+    public $primaryKey = 'id';
 
     /**
      * Nama nama field
      * 
      * @var array $fields
      */
-    private array $fields = [];
+    protected $fields = [];
 
     /**
      * Data seeding
      * 
      * @var array $seed
      */
-    private array $seed_data = [];
+    protected $seed_data = [];
 
     /**
      * Array untuk menambah key saat migrasi
      * 
      * @var array $add_key
      */
-    private array $add_keys;
+    protected $add_keys;
 
     /**
      * Array untuk menambah field saat migrasi
      * 
      * @var array $add_field
      */
-    private array $add_fields;
+    protected $add_fields;
 
     /**
      * Fungsi yang pertamakali di jalankan
      * 
      * @return void
      */
-    public function __construct()
+    public function __construct($class = null)
     {
         parent::__construct();
-        $this->table = rtrim(get_class(), '_model');
+        if ($class === null) $class = $this;
+        if (!isset($this->table)) $this->table = str_replace('_model', '', get_class($class));
     }
 
     /**

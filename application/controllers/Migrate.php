@@ -11,18 +11,17 @@ class Migrate extends CI_Controller
     /**
      * Nama database
      */
-    private $database = 'my_database';
+    private $database = 'db_auth';
 
     /**
      * Fungsi yang pertamakali di panggil
-     * 
-     * Agar user tidak mengakses lewat url
      */
     public function __construct()
     {
         parent::__construct();
-        // Khusus dijalankan lewat CLI tidak boleh lewat HTML
-        if (!is_cli()) {
+        // Khusus dijalankan lewat CLI (tidak boleh lewat HTML)
+        // dan dinonaktifkan ketika production
+        if (!is_cli() || (ENVIRONMENT === 'production')) {
             show_404();
             exit;
         }
@@ -30,8 +29,8 @@ class Migrate extends CI_Controller
         $this->load->dbforge();
 
         //  Load model jika belum di load
+        if (!$this->load->is_loaded('Example_model')) $this->load->model('Example_model', 'example_model');
         if (!$this->load->is_loaded('Foo_model')) $this->load->model('Foo_model', 'foo_model');
-        if (!$this->load->is_loaded('Bar_model')) $this->load->model('Bar_model', 'bar_model');
     }
 
     /**
@@ -43,12 +42,13 @@ class Migrate extends CI_Controller
 
         // ==== DDL ====
         $this->foo_model->migrate();
+        $this->example_model->migrate();
 
         // ==== DML ====
         $this->foo_model->seed();
 
         // ==== DUMMY ====
-        $this->bar_model->seed();
+        $this->example_model->seed();
     }
 
     /**
