@@ -11,8 +11,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @package		CodeIgniter
  * @subpackage	Libraries
  * @category	Loader
- * @author		EllisLab Dev Team
- * @link		https://codeigniter.com/user_guide/libraries/loader.html
+ * @author		Fany Muhammad Fahmi Kamilah
  */
 class MY_Loader extends CI_Loader
 {
