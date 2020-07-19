@@ -40,5 +40,5 @@ CREATE TABLE `module_role` (
 );
 INSERT INTO `module_role` VALUES(1, 1, 1);
 INSERT INTO `module_role` VALUES(2, 2, 1);
-INSERT INTO `module_role` VALUES(3, 3, 1);
+-- INSERT INTO `module_role` VALUES(3, 3, 1);
 INSERT INTO `module_role` VALUES(4, 4, 1);

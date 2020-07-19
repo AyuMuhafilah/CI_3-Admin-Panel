@@ -41,19 +41,8 @@ class Satpam
      * @param bool $ajax Request harus lewat ajax
      * @return void
      */
-    public function jaga(bool $module = true, bool $ajax = false)
+    public function jaga(bool $module = true)
     {
-        // Ambil header dari ajax
-        $is_ajax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH'])) ? strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) : '';
-
-        if ($ajax && $is_ajax != 'xmlhttprequest') { // Harus lewat ajax
-            $this->CI->output->set_status_header(403);
-            exit;
-        } elseif (!$ajax && $is_ajax == 'xmlhttprequest') { // Tidak boleh lewat ajax
-            $this->CI->output->set_status_header(403);
-            exit;
-        }
-
         // Jika user sudan login
         if ($user_id = $this->CI->session->userdata(AUTH_USERDATA)) {
 
@@ -61,8 +50,8 @@ class Satpam
             if (!$module) return;
 
             // Ambil URI string nya yang asli dan yang routed
-            $uri = $this->CI->uri->uri_string();
-            $ruri = $this->CI->uri->ruri_string();
+            $uri = strtolower($this->CI->uri->uri_string());
+            $ruri = strtolower($this->CI->uri->ruri_string());
 
             // variabel untuk izin module
             $izin = false;
@@ -70,6 +59,7 @@ class Satpam
             // Jika user berhak mengakses module
             $modules = $this->CI->module_model->modulesForSatpam($user_id)->result_array();
             foreach ($modules as $module) {
+                $module['url'] = strtolower($module['url']);
                 if (($module['url'] != $uri) && ($module['url'] != $ruri)) continue; // periksa setiap izin module pada database
                 $izin = true; // jika ada izin maka set variabel $izin menjadi true
             }
@@ -80,7 +70,34 @@ class Satpam
                 exit;
             }
         } else {
-            redirect('login', 'auto', 403);
+            if ($this->CI->input->is_ajax_request()) redirect('login', 'auto', 403);
+            redirect('login');
+        }
+    }
+
+    /**
+     * Request harus dengan ajax
+     * 
+     * @return void
+     */
+    public function ajax()
+    {
+        if (!$this->CI->input->is_ajax_request()) { // Harus lewat ajax
+            $this->CI->output->set_status_header(403);
+            exit;
+        }
+    }
+
+    /**
+     * Request tidak boleh dengan ajax
+     * 
+     * @return void
+     */
+    public function no_ajax()
+    {
+        if ($this->CI->input->is_ajax_request()) { // Tidak boleh lewat ajax
+            $this->CI->output->set_status_header(403);
+            exit;
         }
     }
 }
