@@ -30,7 +30,13 @@ class MY_Model extends CI_Model
      * 
      * @var array $fields
      */
-    protected $fields = [];
+    protected $fields = [
+        'id' => [
+            'type' => 'INTEGER',
+            'constraint' => 11,
+            'auto_increment' => true,
+        ],
+    ];
 
     /**
      * Data seeding
@@ -58,11 +64,10 @@ class MY_Model extends CI_Model
      * 
      * @return void
      */
-    public function __construct($class = null)
+    public function __construct()
     {
         parent::__construct();
-        if ($class === null) $class = $this;
-        if (!isset($this->table)) $this->table = str_replace('_model', '', get_class($class));
+        if (!isset($this->table)) $this->table = str_replace('_model', '', get_class($this));
     }
 
     /**

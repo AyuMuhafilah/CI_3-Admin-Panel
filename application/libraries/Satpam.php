@@ -38,7 +38,6 @@ class Satpam
      * Disarankan di panggil pada awal controller untuk keamanan.
      * 
      * @param bool $module Cek hak akses module dari database
-     * @param bool $ajax Request harus lewat ajax
      * @return void
      */
     public function jaga(bool $module = true)

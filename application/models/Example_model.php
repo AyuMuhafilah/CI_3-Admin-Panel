@@ -63,7 +63,7 @@ class Example_model extends MY_Model
      */
     public function __construct()
     {
-        parent::__construct($this);
+        parent::__construct();
 
         // Load model jika belum di load
         if (!$this->load->is_loaded('Foo_model')) $this->load->model('Foo_model', 'foo_model');
