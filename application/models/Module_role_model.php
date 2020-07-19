@@ -26,6 +26,53 @@ class Module_role_model extends CI_Model
     private $role_id;
 
     /**
+     * Nama nama field
+     * 
+     * @var array $fields
+     */
+    protected $fields = [
+        'id' => [
+            'type' => 'INTEGER',
+            'constraint' => 11,
+            'auto_increment' => true,
+        ],
+        'module_id' => [
+            'type' => 'INTEGER',
+            'constraint' => 11,
+            'null' => false,
+        ],
+        'role_id' => [
+            'type' => 'INTEGER',
+            'constraint' => 11,
+            'null' => false,
+        ],
+    ];
+
+    /**
+     * Data seeding
+     * 
+     * @var array $seed
+     */
+    protected $seed_data = [
+        [
+            'module_id' => 1,
+            'role_id' => 1,
+        ],
+        [
+            'module_id' => 2,
+            'role_id' => 1,
+        ],
+        [
+            'module_id' => 3,
+            'role_id' => 1,
+        ],
+        [
+            'module_id' => 4,
+            'role_id' => 1,
+        ],
+    ];
+
+    /**
      * Fungsi yang di panggil pertamakali
      * 
      * Digunakan untuk me-load model yang dibutuhkan
@@ -36,6 +83,12 @@ class Module_role_model extends CI_Model
 
         // Load model jika belum di load
         if (!$this->load->is_loaded('Module_model')) $this->load->model('Module_model', 'module_model');
+        if (!$this->load->is_loaded('Role_model')) $this->load->model('Role_model', 'role_model');
+
+        $this->add_fields = [
+            "FOREIGN KEY (`module_id`) REFERENCES `{$this->module_model->table}` (`{$this->module_model->primaryKey}`)",
+            "FOREIGN KEY (`role_id`) REFERENCES `{$this->role_model->table}` (`{$this->role_model->primaryKey}`)",
+        ];
     }
 
     /**

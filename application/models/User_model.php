@@ -10,24 +10,61 @@ class User_model extends CI_Model
      */
     public $table = 'users';
 
-    /**
-     * Ambil semua data
-     * 
-     * @return CI_DB_result::class query result
-     */
-    public function all()
-    {
-        return $this->db->get($this->table);
-    }
 
     /**
-     * Ambil data berdasarkan field (get_where)
+     * Nama nama field
      * 
-     * @param array $find
-     * @return CI_DB_result::class query result
+     * @var array $fields
      */
-    public function find(array $find)
+    protected $fields = [
+        'id' => [
+            'type' => 'BIGINT',
+            'constraint' => 20,
+            'auto_increment' => true,
+        ],
+        'role_id' => [
+            'type' => 'INTEGER',
+            'constraint' => 11,
+            'auto_increment' => true,
+        ],
+        'username' => [
+            'type' => 'VARCHAR',
+            'constraint' => 128,
+            'null' => false,
+        ],
+        'password' => [
+            'type' => 'VARCHAR',
+            'constraint' => 255,
+            'null' => false,
+        ],
+    ];
+
+    /**
+     * Data seeding
+     * 
+     * @var array $seed
+     */
+    protected $seed_data = [
+        [
+            'role_id' => 1,
+            'username' => 'developer',
+            'password' => '123',
+        ],
+        [
+            'role_id' => 2,
+            'username' => 'administrator',
+            'password' => '123',
+        ],
+    ];
+
+    public function __construct()
     {
-        return $this->db->get_where($this->table, $find);
+        parent::__construct();
+
+        if (!$this->load->is_loaded('Role_model')) $this->load->model('Role_model', 'role_model');
+
+        $this->add_fields = [
+            "FOREIGN KEY (`role_id`) REFERENCES `{$this->role_model->table}`(`{$this->role_model->primaryKey}`)"
+        ];
     }
 }
