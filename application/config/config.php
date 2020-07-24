@@ -23,13 +23,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-if (is_cli()) {
-    $base_url = 'http://localhost/Smart-Education'; // Untuk CLI
-} else {
-    $protocol = (!empty($_SERVER['HTTPS'])) ? 'https' : 'http';
-    $base_url = $protocol . '://' . $_SERVER['HTTP_HOST'] . '/Smart-Education2/'; // Untuk HTML
-}
-$config['base_url'] = $base_url;
+$protocol = (is_https()) ? 'https' : 'http';
+$config['base_url'] = $protocol . '://' . env('BASE_URL', 'localhost');
 
 /*
 |--------------------------------------------------------------------------
@@ -142,7 +137,7 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = FALSE;
+$config['composer_autoload'] = 'vendor/autoload.php';
 
 /*
 |--------------------------------------------------------------------------
