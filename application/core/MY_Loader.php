@@ -91,8 +91,15 @@ class MY_Loader extends CI_Loader
 
         // Query ke database
         $this->CI->db->select($this->CI->M_menu->table . '.*'); // Select * dari tabel menu saja (jangan select apapun dari tabel menu_role)
-        $this->CI->M_menu_role->joinMenu(); // join dengan tabel menu
-        $menus = $this->CI->M_menu_role->find(['role_id' => $role_id, 'parent_id' => $parent_id])->result_array();
+        $this->CI->db->order_by('order');
+
+        // Jika role user adalah developer, maka tampilkan semua menu
+        if ($this->CI->session->userdata('role') == 'Developer') {
+            $menus = $this->CI->M_menu->find(['parent_id' => $parent_id])->result_array();
+        } else {
+            $this->CI->M_menu_role->joinMenu(); // join dengan tabel menu
+            $menus = $this->CI->M_menu_role->find(['role_id' => $role_id, 'parent_id' => $parent_id])->result_array();
+        }
         // ^^ SELECT menu.* FROM menu_role JOIN menu ON menus.id = menu_id WHERE ...
 
         // Menambahkan child &&

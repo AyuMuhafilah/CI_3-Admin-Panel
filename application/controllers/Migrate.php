@@ -70,8 +70,8 @@ class Migrate extends CI_Controller
      */
     public function clear()
     {
-        if ($this->dbforge->drop_database($this->database)) echo "\033[1;32mDatabase di hapus\033[0m\n";
-        if ($this->dbforge->create_database($this->database)) echo "\033[0;32mDatabse dibuat\033[0m\n";
+        if ($this->dbforge->drop_database($this->database)) echo "\033[1;32mDatabase {$this->database} di hapus\033[0m\n";
+        if ($this->dbforge->create_database($this->database)) echo "\033[0;32mDatabse {$this->database} dibuat\033[0m\n";
     }
 
     /**

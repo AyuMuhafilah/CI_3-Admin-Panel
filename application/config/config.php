@@ -529,7 +529,6 @@ $config['proxy_ips'] = '';
 |--------------------------------------------------------------------------
 |
 | Template dari header ke footer
-| Diubah sesuai kebutuhan
 */
 $config['views_before'] = [
     'home/head', 'home/menus'

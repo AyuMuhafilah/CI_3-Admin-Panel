@@ -7,10 +7,6 @@ class Auth extends CI_Controller
     {
         $this->satpam->no_ajax();
 
-        // Tampilkan profiler
-        // Profiler di php 7.4.* memunculkan error, harus menunggu codeigniter 3.1.12
-        // $this->output->enable_profiler(TRUE);
-
         // Load library
         $this->load->library('form_validation');
 
