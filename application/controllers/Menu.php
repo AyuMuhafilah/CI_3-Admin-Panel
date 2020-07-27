@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Module extends CI_Controller
+class Menu extends CI_Controller
 {
     public function index()
     {
-        $this->satpam->jaga(true, true);
+        $this->satpam->jaga();
         echo "OK";
     }
 }

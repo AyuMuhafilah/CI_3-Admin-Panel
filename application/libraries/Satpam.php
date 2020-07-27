@@ -33,41 +33,17 @@ class Satpam
     /**
      * Kerahkan satpam
      * 
-     * Beri perintah pada satpam untuk berjaga terhadap user yang tidak memiliki hak akses.
+     * Beri perintah pada satpam untuk berjaga terhadap user yang belum login
      * 
      * Disarankan di panggil pada awal controller untuk keamanan.
      * 
-     * @param bool $module Cek hak akses module dari database
      * @return void
      */
-    public function jaga(bool $module = true)
+    public function jaga()
     {
         // Jika user sudan login
-        if ($user_id = $this->CI->session->userdata(AUTH_USERDATA)) {
-
-            // Jika satpam tidak ditugaskan untuk menjaga akses module maka tugas satpam selesai
-            if (!$module) return;
-
-            // Ambil URI string nya yang asli dan yang routed
-            $uri = strtolower($this->CI->uri->uri_string());
-            $ruri = strtolower($this->CI->uri->ruri_string());
-
-            // variabel untuk izin module
-            $izin = false;
-
-            // Jika user berhak mengakses module
-            $modules = $this->CI->M_menu->modulesForSatpam($user_id)->result_array();
-            foreach ($modules as $module) {
-                $module['url'] = strtolower($module['url']);
-                if (($module['url'] != $uri) && ($module['url'] != $ruri)) continue; // periksa setiap izin module pada database
-                $izin = true; // jika ada izin maka set variabel $izin menjadi true
-            }
-
-            // jika tidak ada izin 
-            if (!$izin) {
-                $this->CI->output->set_status_header(403); // maka tampilkan error 403
-                exit;
-            }
+        if ($this->CI->session->userdata(AUTH_USERDATA)) {
+            return;
         } else {
             if ($this->CI->input->is_ajax_request()) redirect('login', 'auto', 403);
             redirect('login');

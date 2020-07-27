@@ -15,7 +15,7 @@ class Home extends CI_Controller
 
     public function index()
     {
-        $this->satpam->jaga(false); // Penjaga Keamanan
+        $this->satpam->jaga(); // Penjaga Keamanan
 
         // Tampilkan profiler
         // Profiler di php 7.4.* memunculkan error, harus menunggu codeigniter 3.1.12

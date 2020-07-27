@@ -38,24 +38,6 @@ class M_user extends MY_Model
         ],
     ];
 
-    /**
-     * Data seeding
-     * 
-     * @var array $seed
-     */
-    protected $seed_data = [
-        [
-            'role_id' => 1,
-            'username' => 'developer',
-            'password' => '123',
-        ],
-        [
-            'role_id' => 2,
-            'username' => 'administrator',
-            'password' => '123',
-        ],
-    ];
-
     public function __construct()
     {
         parent::__construct();
@@ -66,7 +48,18 @@ class M_user extends MY_Model
             "FOREIGN KEY (`role_id`) REFERENCES `{$this->M_role->table}`(`{$this->M_role->primaryKey}`)"
         ];
 
-        $this->load->model('M_role');
+        $this->seed_data = [
+            [
+                'role_id' => 1,
+                'username' => 'developer',
+                'password' => password_hash('123', PASSWORD_DEFAULT),
+            ],
+            [
+                'role_id' => 2,
+                'username' => 'administrator',
+                'password' => password_hash('123', PASSWORD_DEFAULT),
+            ],
+        ];
     }
 
     public function joinRole()

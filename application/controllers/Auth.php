@@ -9,7 +9,7 @@ class Auth extends CI_Controller
 
         // Tampilkan profiler
         // Profiler di php 7.4.* memunculkan error, harus menunggu codeigniter 3.1.12
-        $this->output->enable_profiler(TRUE);
+        // $this->output->enable_profiler(TRUE);
 
         // Load library
         $this->load->library('form_validation');
@@ -35,7 +35,7 @@ class Auth extends CI_Controller
         }
 
         // Nested if. Jika user input valid >> jika data user ditemukan >> jika password benar
-        if (($this->form_validation->run()) && ($user->num_rows() > 0) && ($data_user['password'] == $password)) {
+        if (($this->form_validation->run()) && ($user->num_rows() > 0) && (password_verify($password, $data_user['password']))) {
             $this->session->set_userdata(AUTH_USERDATA, $data_user['id']); // Menyimpan session
             $this->session->set_userdata('role_id', $data_user['role_id']); // Menyimpan session
             $this->session->set_userdata('role', $data_user['role']); // Menyimpan session
