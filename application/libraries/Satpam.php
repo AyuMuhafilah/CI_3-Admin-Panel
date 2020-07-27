@@ -56,7 +56,7 @@ class Satpam
             $izin = false;
 
             // Jika user berhak mengakses module
-            $modules = $this->CI->module_model->modulesForSatpam($user_id)->result_array();
+            $modules = $this->CI->M_menu->modulesForSatpam($user_id)->result_array();
             foreach ($modules as $module) {
                 $module['url'] = strtolower($module['url']);
                 if (($module['url'] != $uri) && ($module['url'] != $ruri)) continue; // periksa setiap izin module pada database

@@ -62,4 +62,20 @@ class MY_Loader extends CI_Loader
                 if (is_string($after))
                     $this->CI->load->view($after, $this->data);
     }
+
+    /**
+     * Model Loader
+     *
+     * Loads and instantiates models. Don't load if the class is loaded
+     *
+     * @param	mixed	$model		Model name
+     * @param	string	$name		An optional object name to assign to
+     * @param	bool	$db_conn	An optional database connection configuration to initialize
+     * @return	object|void
+     */
+    public function model($model, $name = '', $db_conn = FALSE)
+    {
+        if ($this->load->is_loaded($model)) return;
+        parent::model($model, $name, $db_conn);
+    }
 }

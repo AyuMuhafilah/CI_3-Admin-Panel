@@ -1,14 +1,14 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Module_model extends MY_Model
+class M_menu extends MY_Model
 {
     /**
      * Nama tabel
      * 
      * @var string $table
      */
-    public $table = 'modules';
+    public $table = 'menu';
 
     /**
      * Nama nama field
@@ -21,7 +21,7 @@ class Module_model extends MY_Model
             'constraint' => 11,
             'auto_increment' => true,
         ],
-        'module' => [
+        'menu' => [
             'type' => 'VARCHAR',
             'constraint' => 64,
             'null' => false,
@@ -63,7 +63,7 @@ class Module_model extends MY_Model
     protected $seed_data = [
         [
             'id' => 1,
-            'module' => 'Home',
+            'menu' => 'Home',
             'url' => 'Home',
             'base_url' => true,
             'parent_id' => null,
@@ -73,7 +73,7 @@ class Module_model extends MY_Model
         ],
         [
             'id' => 2,
-            'module' => 'Developer',
+            'menu' => 'Developer',
             'url' => '#',
             'base_url' => false,
             'parent_id' => null,
@@ -83,8 +83,8 @@ class Module_model extends MY_Model
         ],
         [
             'id' => null,
-            'module' => 'Menu Management',
-            'url' => 'Module',
+            'menu' => 'Menu Management',
+            'url' => 'Menu',
             'base_url' => true,
             'parent_id' => 2,
             'is_parent' => false,
@@ -93,7 +93,7 @@ class Module_model extends MY_Model
         ],
         [
             'id' => null,
-            'module' => 'Access Management',
+            'menu' => 'Access Management',
             'url' => 'Access',
             'base_url' => true,
             'parent_id' => 2,
@@ -112,14 +112,14 @@ class Module_model extends MY_Model
     public function auth(int $user_id)
     {
         // Load model jika belum di load
-        if (!$this->load->is_loaded('Module_role_model')) $this->load->model('Module_role_model', 'module_role_model');
-        if (!$this->load->is_loaded('User_model')) $this->load->model('User_model', 'user_model');
+        if (!$this->load->is_loaded('M_menu_role')) $this->load->model('M_menu_role');
+        if (!$this->load->is_loaded('M_user')) $this->load->model('M_user');
 
         // ambil role_user
         $this->db->select('role_id');
-        $role_user = $this->user_model->find(['id' => $user_id])->row_array()['role_id'];
+        $role_user = $this->M_user->find(['id' => $user_id])->row_array()['role_id'];
 
-        return $this->module_role_model->modules($role_user);
+        return $this->M_menu_role->modules($role_user);
     }
 
     /**
@@ -133,13 +133,13 @@ class Module_model extends MY_Model
     public function modulesForSatpam(int $user_id)
     {
         // Load model jika belum di load
-        if (!$this->load->is_loaded('Module_role_model')) $this->load->model('Module_role_model', 'module_role_model');
-        if (!$this->load->is_loaded('User_model')) $this->load->model('User_model', 'user_model');
+        if (!$this->load->is_loaded('M_menu_role')) $this->load->model('M_menu_role');
+        if (!$this->load->is_loaded('M_user')) $this->load->model('M_user');
 
         // ambil role_user
         $this->db->select('role_id');
-        $role_user = $this->user_model->find(['id' => $user_id])->row_array()['role_id'];
+        $role_user = $this->M_user->find(['id' => $user_id])->row_array()['role_id'];
 
-        return $this->module_role_model->modulesForSatpam($role_user);
+        return $this->M_menu_role->modulesForSatpam($role_user);
     }
 }

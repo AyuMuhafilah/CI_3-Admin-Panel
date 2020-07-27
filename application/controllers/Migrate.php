@@ -29,8 +29,8 @@ class Migrate extends CI_Controller
         $this->load->dbforge();
 
         //  Load model jika belum di load
-        if (!$this->load->is_loaded('Example_model')) $this->load->model('Example_model', 'example_model');
-        if (!$this->load->is_loaded('Foo_model')) $this->load->model('Foo_model', 'foo_model');
+        $this->load->model('M_example');
+        $this->load->model('M_foo');
     }
 
     /**
@@ -41,14 +41,14 @@ class Migrate extends CI_Controller
         $this->db->query('use ' . $this->database);
 
         // ==== DDL ====
-        $this->foo_model->migrate();
-        $this->example_model->migrate();
+        $this->M_foo->migrate();
+        $this->M_example->migrate();
 
         // ==== DML ====
-        $this->foo_model->seed();
+        $this->M_foo->seed();
 
         // ==== DUMMY ====
-        $this->example_model->seed();
+        $this->M_example->seed();
     }
 
     /**

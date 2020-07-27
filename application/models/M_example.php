@@ -1,14 +1,14 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Example_model extends MY_Model
+class M_example extends MY_Model
 {
     /**
      * Nama tabel
      * 
      * @var string $table
      */
-    public $table = 'Example';
+    public $table = 'example';
 
     /**
      * Nama primary key
@@ -66,10 +66,10 @@ class Example_model extends MY_Model
         parent::__construct();
 
         // Load model jika belum di load
-        if (!$this->load->is_loaded('Foo_model')) $this->load->model('Foo_model', 'foo_model');
+        if (!$this->load->is_loaded('M_foo')) $this->load->model('M_foo');
 
         $this->add_fields = [
-            "FOREIGN KEY (`foo_id`) REFERENCES `{$this->foo_model->table}`(`{$this->foo_model->primaryKey}`)",
+            "FOREIGN KEY (`foo_id`) REFERENCES `{$this->M_foo->table}`(`{$this->M_foo->primaryKey}`)",
         ];
     }
 
@@ -80,6 +80,6 @@ class Example_model extends MY_Model
      */
     public function joinFoo()
     {
-        $this->db->join($this->foo_model->table, "{$this->foo_model->table}.{$this->foo_model->primarykey} = {$this->table}.foo_id");
+        $this->db->join($this->M_foo->table, "{$this->M_foo->table}.{$this->M_foo->primarykey} = {$this->table}.foo_id");
     }
 }

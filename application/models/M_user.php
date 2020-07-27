@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class User_model extends CI_Model
+class M_user extends CI_Model
 {
     /**
      * Nama tabel
@@ -9,7 +9,6 @@ class User_model extends CI_Model
      * @var string $table
      */
     public $table = 'users';
-
 
     /**
      * Nama nama field

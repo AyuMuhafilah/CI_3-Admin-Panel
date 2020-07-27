@@ -1,15 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Example_model extends MY_Model
+class M_foo extends MY_Model
 {
-    /**
-     * Nama tabel
-     * 
-     * @var string $table
-     */
-    public $table = 'Example';
-
     /**
      * Nama nama field
      * 
@@ -21,9 +14,9 @@ class Example_model extends MY_Model
             'constraint' => 11,
             'auto_increment' => true,
         ],
-        'role' => [
+        'field_name' => [
             'type' => 'VARCHAR',
-            'constraint' => 64,
+            'constraint' => 128,
             'null' => false,
         ],
     ];
@@ -35,20 +28,10 @@ class Example_model extends MY_Model
      */
     protected $seed_data = [
         [
-            'role' => 'Developer',
+            'field_name' => 'anything',
         ],
         [
-            'role' => 'Administrator',
+            'field_name' => 'also anything',
         ],
     ];
-
-    /**
-     * Join dengan tabel foo
-     * 
-     * @return viod
-     */
-    public function joinFoo()
-    {
-        $this->db->join($this->foo_model->table, "{$this->foo_model->table}.{$this->foo_model->primarykey} = {$this->table}.foo_id");
-    }
 }
