@@ -10,13 +10,14 @@
 		"type": "git",
 		"url": "git+https://github.com/AyuMuhafilah/CI_3-Admin-Panel.git"
 	},
-	"author": "",
+	"author": "Fany Muhammad Fahmi Kamilah",
 	"license": "MIT",
 	"bugs": {
 		"url": "https://github.com/AyuMuhafilah/CI_3-Admin-Panel/issues"
 	},
 	"homepage": "https://github.com/AyuMuhafilah/CI_3-Admin-Panel#readme",
 	"dependencies": {
+		"admin-lte": "^3.0.5",
 		"jstree": "^3.3.10"
 	}
 }
