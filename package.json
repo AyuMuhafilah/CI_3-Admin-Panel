@@ -1,0 +1,22 @@
+{
+	"name": "ci_3-admin-panel",
+	"version": "1.0.0",
+	"description": "Core app",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/AyuMuhafilah/CI_3-Admin-Panel.git"
+	},
+	"author": "",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/AyuMuhafilah/CI_3-Admin-Panel/issues"
+	},
+	"homepage": "https://github.com/AyuMuhafilah/CI_3-Admin-Panel#readme",
+	"dependencies": {
+		"jstree": "^3.3.10"
+	}
+}
