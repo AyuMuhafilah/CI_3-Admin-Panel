@@ -28,9 +28,13 @@ class Migrate extends CI_Controller
 
         $this->load->dbforge();
 
-        //  Load model jika belum di load
+        //  Load model
         $this->load->model('M_example');
         $this->load->model('M_foo');
+        $this->load->model('M_role');
+        $this->load->model('M_user');
+        $this->load->model('M_menu');
+        $this->load->model('M_menu_role');
     }
 
     /**
@@ -43,9 +47,17 @@ class Migrate extends CI_Controller
         // ==== DDL ====
         $this->M_foo->migrate();
         $this->M_example->migrate();
+        $this->M_role->migrate();
+        $this->M_user->migrate();
+        $this->M_menu->migrate();
+        $this->M_menu_role->migrate();
 
         // ==== DML ====
         $this->M_foo->seed();
+        $this->M_role->seed();
+        $this->M_user->seed();
+        $this->M_menu->seed();
+        $this->M_menu_role->seed();
 
         // ==== DUMMY ====
         $this->M_example->seed();

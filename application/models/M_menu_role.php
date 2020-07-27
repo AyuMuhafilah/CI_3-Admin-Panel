@@ -11,15 +11,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * 
  * @author		Fany Muhammad Fahmi Kamilah
  */
-class M_menu_role extends CI_Model
+class M_menu_role extends MY_Model
 {
-    /**
-     * Nama tabel
-     * 
-     * @var string $table
-     */
-    public $table = 'menu_role';
-
     /**
      * Atribut bantu untuk fungsi array_map()
      */

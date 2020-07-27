@@ -4,13 +4,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class M_menu extends MY_Model
 {
     /**
-     * Nama tabel
-     * 
-     * @var string $table
-     */
-    public $table = 'menu';
-
-    /**
      * Nama nama field
      * 
      * @var array $fields

@@ -66,7 +66,7 @@ class MY_Loader extends CI_Loader
     /**
      * Model Loader
      *
-     * Loads and instantiates models. Don't load if the class is loaded
+     * Loads and instantiates models. Don't load if the model is loaded
      *
      * @param	mixed	$model		Model name
      * @param	string	$name		An optional object name to assign to
@@ -75,7 +75,14 @@ class MY_Loader extends CI_Loader
      */
     public function model($model, $name = '', $db_conn = FALSE)
     {
-        if ($this->load->is_loaded($model)) return;
+        if (is_array($model)) {
+            foreach ($model as $key => $value) {
+                is_int($key) ? $this->model($value, '', $db_conn) : $this->model($key, $value, $db_conn);
+            }
+            return $this;
+        }
+
+        if ($this->CI->load->is_loaded($model)) return;
         parent::model($model, $name, $db_conn);
     }
 }

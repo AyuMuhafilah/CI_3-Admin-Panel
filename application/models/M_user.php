@@ -1,14 +1,14 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class M_user extends CI_Model
+class M_user extends MY_Model
 {
     /**
      * Nama tabel
      * 
      * @var string $table
      */
-    public $table = 'users';
+    public $table = 'user';
 
     /**
      * Nama nama field
@@ -24,7 +24,7 @@ class M_user extends CI_Model
         'role_id' => [
             'type' => 'INTEGER',
             'constraint' => 11,
-            'auto_increment' => true,
+            'null' => false,
         ],
         'username' => [
             'type' => 'VARCHAR',
@@ -60,10 +60,10 @@ class M_user extends CI_Model
     {
         parent::__construct();
 
-        if (!$this->load->is_loaded('Role_model')) $this->load->model('Role_model', 'role_model');
+        $this->load->model('M_role');
 
         $this->add_fields = [
-            "FOREIGN KEY (`role_id`) REFERENCES `{$this->role_model->table}`(`{$this->role_model->primaryKey}`)"
+            "FOREIGN KEY (`role_id`) REFERENCES `{$this->M_role->table}`(`{$this->M_role->primaryKey}`)"
         ];
     }
 }

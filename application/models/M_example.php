@@ -66,7 +66,7 @@ class M_example extends MY_Model
         parent::__construct();
 
         // Load model jika belum di load
-        if (!$this->load->is_loaded('M_foo')) $this->load->model('M_foo');
+        $this->load->model('M_foo');
 
         $this->add_fields = [
             "FOREIGN KEY (`foo_id`) REFERENCES `{$this->M_foo->table}`(`{$this->M_foo->primaryKey}`)",

@@ -12,7 +12,7 @@ class Home extends CI_Controller
         // $this->output->enable_profiler(TRUE);
 
         $user_id = $this->session->userdata(AUTH_USERDATA); // ambil user_id
-        $data['modules'] = $this->module_model->auth($user_id); // Query data modul ke database
+        $data['modules'] = $this->M_menu->auth($user_id); // Query data modul ke database
 
         // View untuk halaman admin
         // Meload view berdasarkan urutannya

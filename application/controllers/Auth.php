@@ -33,7 +33,10 @@ class Auth extends CI_Controller
             redirect('Home');
         } else {
             // Tampilkan pesan hanya jika user input telah di validasi
-            if ($this->form_validation->run()) $this->session->set_flashdata('error_message', 'Username atau Password salah!!!');
+            if ($this->form_validation->run()) {
+                $this->session->set_flashdata('error_message', 'Username atau Password salah!!!');
+                redirect('Auth');
+            }
 
             // Tampilkan halaman login
             $this->load->view('auth/login');
