@@ -1,16 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-/**
- * Class model untuk tabel module_role
- * 
- * Tabel module_role merupakan tabel pembantu dalam relasi Many to Many antara
- * tabel modules dan tabel roles
- * 
- * Model ini tidak disarankan di gunakan langsung di controller, hanya di gunakan di model saja
- * 
- * @author		Fany Muhammad Fahmi Kamilah
- */
 class M_menu_role extends MY_Model
 {
     /**
@@ -74,9 +64,9 @@ class M_menu_role extends MY_Model
     {
         parent::__construct();
 
-        // Load model jika belum di load
-        if (!$this->load->is_loaded('M_menu')) $this->load->model('M_menu');
-        if (!$this->load->is_loaded('M_role')) $this->load->model('M_role');
+        // Load model
+        $this->load->model('M_menu');
+        $this->load->model('M_role');
 
         $this->add_fields = [
             "FOREIGN KEY (`menu_id`) REFERENCES `{$this->M_menu->table}` (`{$this->M_menu->primaryKey}`)",
@@ -133,5 +123,15 @@ class M_menu_role extends MY_Model
         $this->db->select('url');
         $this->db->join($this->M_menu->table, $this->M_menu->table . '.id = module_id');
         return $this->db->get_where($this->table, ['role_id' => $role_id]);
+    }
+
+    public function joinMenu()
+    {
+        $this->db->join($this->M_menu->table, "{$this->M_menu->table}.{$this->M_menu->primaryKey} = {$this->table}.menu_id");
+    }
+
+    public function joinRole()
+    {
+        $this->db->join($this->M_role->table, "{$this->M_role->table}.{$this->M_role->primaryKey} = {$this->table}.role_id");
     }
 }

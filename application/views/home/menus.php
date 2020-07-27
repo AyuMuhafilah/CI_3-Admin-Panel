@@ -9,21 +9,24 @@
 
 <div>
     <ul>
-        <?php foreach ($modules as $module) : ?>
+        <?php foreach ($menus as $menu) : ?>
 
-            <li><a href="<?= $module['url'] ?>" class="load-to-content"><?= $module['module'] ?></a></li>
+            <li><a href="<?= $menu['url'] ?>" class="load-to-content"><?= $menu['menu'] ?></a></li>
 
-            <?php if (!empty($module['childs'])) : ?>
+            <?php if (!empty($menu['childs'])) : ?>
                 <ul>
 
-                    <?php foreach ($module['childs'] as $child_1) : ?>
-                        <li><a href="<?= $child_1['url'] ?>" class="load-to-content"><?= $child_1['module'] ?></a></li>
+                    <?php foreach ($menu['childs'] as $child_1) : ?>
+                        <li><a href="<?= $child_1['url'] ?>" class="load-to-content"><?= $child_1['menu'] ?></a></li>
                     <?php endforeach ?>
 
                 </ul>
             <?php endif ?>
 
         <?php endforeach ?>
+        <li>
+            <a href="<?= base_url('logout') ?>">Logout</a>
+        </li>
     </ul>
 </div>
 <hr>

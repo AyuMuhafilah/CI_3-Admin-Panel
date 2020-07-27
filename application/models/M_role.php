@@ -34,14 +34,4 @@ class M_role extends MY_Model
             'role' => 'Administrator',
         ],
     ];
-
-    /**
-     * Join dengan tabel foo
-     * 
-     * @return viod
-     */
-    public function joinFoo()
-    {
-        $this->db->join($this->foo_model->table, "{$this->foo_model->table}.{$this->foo_model->primarykey} = {$this->table}.foo_id");
-    }
 }

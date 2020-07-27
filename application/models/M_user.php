@@ -65,5 +65,12 @@ class M_user extends MY_Model
         $this->add_fields = [
             "FOREIGN KEY (`role_id`) REFERENCES `{$this->M_role->table}`(`{$this->M_role->primaryKey}`)"
         ];
+
+        $this->load->model('M_role');
+    }
+
+    public function joinRole()
+    {
+        $this->db->join($this->M_role->table, "{$this->M_role->table}.{$this->M_role->primaryKey} = {$this->table}.role_id");
     }
 }
