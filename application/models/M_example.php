@@ -18,29 +18,6 @@ class M_example extends MY_Model
     public $primaryKey = 'id';
 
     /**
-     * Nama nama field
-     * 
-     * @var array $fields
-     */
-    protected $fields = [
-        'id' => [
-            'type' => 'INTEGER',
-            'constraint' => 11,
-            'auto_increment' => true,
-        ],
-        'foo_id' => [
-            'type' => 'INTEGER',
-            'constraint' => 11,
-            'null' => false,
-        ],
-        'field_name' => [
-            'type' => 'VARCHAR',
-            'constraint' => 128,
-            'null' => false,
-        ],
-    ];
-
-    /**
      * Data seeding
      * 
      * @var array $seed
@@ -67,10 +44,6 @@ class M_example extends MY_Model
 
         // Load model jika belum di load
         $this->load->model('M_foo');
-
-        $this->add_fields = [
-            "FOREIGN KEY (`foo_id`) REFERENCES `{$this->M_foo->table}`(`{$this->M_foo->primaryKey}`)",
-        ];
     }
 
     /**
@@ -80,6 +53,6 @@ class M_example extends MY_Model
      */
     public function joinFoo()
     {
-        $this->db->join($this->M_foo->table, "{$this->M_foo->table}.{$this->M_foo->primarykey} = {$this->table}.foo_id");
+        $this->db->join($this->M_foo->table, "{$this->M_foo->table}.{$this->M_foo->primaryKey} = {$this->table}.foo_id");
     }
 }
