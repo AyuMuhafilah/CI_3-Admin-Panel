@@ -42,7 +42,10 @@ class Satpam
     public function jaga()
     {
         // Jika user sudan login
-        if ($this->CI->session->userdata(AUTH_USERDATA)) {
+        if (
+            $this->CI->session->userdata(AUTH_USERDATA) &&
+            $this->CI->session->userdata('role_id')
+        ) {
             return;
         } else {
             if ($this->CI->input->is_ajax_request()) redirect('login', 'auto', 403);
