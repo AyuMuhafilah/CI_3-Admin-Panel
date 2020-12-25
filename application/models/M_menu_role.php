@@ -4,34 +4,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class M_menu_role extends MY_Model
 {
     /**
-     * Atribut bantu untuk fungsi array_map()
-     */
-    private $role_id;
-
-    /**
-     * Nama nama field
-     * 
-     * @var array $fields
-     */
-    protected $fields = [
-        'id' => [
-            'type' => 'INTEGER',
-            'constraint' => 11,
-            'auto_increment' => true,
-        ],
-        'menu_id' => [
-            'type' => 'INTEGER',
-            'constraint' => 11,
-            'null' => false,
-        ],
-        'role_id' => [
-            'type' => 'INTEGER',
-            'constraint' => 11,
-            'null' => false,
-        ],
-    ];
-
-    /**
      * Data seeding
      * 
      * @var array $seed
@@ -55,11 +27,6 @@ class M_menu_role extends MY_Model
         // Load model
         $this->load->model('M_menu');
         $this->load->model('M_role');
-
-        $this->add_fields = [
-            "FOREIGN KEY (`menu_id`) REFERENCES `{$this->M_menu->table}` (`{$this->M_menu->primaryKey}`)",
-            "FOREIGN KEY (`role_id`) REFERENCES `{$this->M_role->table}` (`{$this->M_role->primaryKey}`)",
-        ];
     }
 
     public function joinMenu()

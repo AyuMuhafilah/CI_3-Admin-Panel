@@ -4,51 +4,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class M_menu extends MY_Model
 {
     /**
-     * Nama nama field
-     * 
-     * @var array $fields
-     */
-    protected $fields = [
-        'id' => [
-            'type' => 'INTEGER',
-            'constraint' => 11,
-            'auto_increment' => true,
-        ],
-        'menu' => [
-            'type' => 'VARCHAR',
-            'constraint' => 64,
-            'null' => false,
-        ],
-        'url' => [
-            'type' => 'VARCHAR',
-            'constraint' => 128,
-            'null' => false,
-        ],
-        'base_url' => [
-            'type' => 'BOOLEAN',
-            'null' => false,
-        ],
-        'parent_id' => [
-            'type' => 'INTEGER',
-            'constraint' => 11,
-            'null' => true,
-        ],
-        'is_parent' => [
-            'type' => 'BOOLEAN',
-            'null' => false,
-        ],
-        'order' => [
-            'type' => 'INTEGER',
-            'constraint' => '4',
-            'null' => false,
-        ],
-        'other' => [
-            'type' => 'TEXT',
-            'null' => true,
-        ],
-    ];
-
-    /**
      * Data seeding
      * 
      * @var array $seed
@@ -62,7 +17,6 @@ class M_menu extends MY_Model
             'parent_id' => null,
             'is_parent' => false,
             'order' => 1,
-            'other' => null,
         ],
         [
             'id' => 2,
@@ -72,7 +26,6 @@ class M_menu extends MY_Model
             'parent_id' => null,
             'is_parent' => false,
             'order' => 2,
-            'other' => null,
         ],
         [
             'id' => 3,
@@ -82,7 +35,6 @@ class M_menu extends MY_Model
             'parent_id' => null,
             'is_parent' => false,
             'order' => 3,
-            'other' => null,
         ],
         [
             'id' => 4,
@@ -92,7 +44,6 @@ class M_menu extends MY_Model
             'parent_id' => null,
             'is_parent' => true,
             'order' => 4,
-            'other' => null,
         ],
         [
             'id' => 5,
@@ -102,7 +53,6 @@ class M_menu extends MY_Model
             'parent_id' => 4,
             'is_parent' => false,
             'order' => 1,
-            'other' => null,
         ],
         [
             'id' => 6,
@@ -112,7 +62,6 @@ class M_menu extends MY_Model
             'parent_id' => 4,
             'is_parent' => false,
             'order' => 2,
-            'other' => null,
         ],
     ];
 
@@ -127,8 +76,8 @@ class M_menu extends MY_Model
     public function modulesForSatpam(int $user_id)
     {
         // Load model jika belum di load
-        if (!$this->load->is_loaded('M_menu_role')) $this->load->model('M_menu_role');
-        if (!$this->load->is_loaded('M_user')) $this->load->model('M_user');
+        $this->load->model('M_menu_role');
+        $this->load->model('M_user');
 
         // ambil role_user
         $this->db->select('role_id');
