@@ -37,28 +37,60 @@ class MY_Loader extends CI_Loader
 
     public function views(Closure $closure, array $before = null, array $after = null)
     {
-        $role_id = $this->CI->session->userdata('role_id'); // ambil role_id
-        $this->role_id = $role_id; // assign ke variabel object agar bisa di ambil di anonymous function
+        if ($this->CI->session->userdata(AUTH_USERDATA)) {
+            $role_id = $this->CI->session->userdata('role_id'); // ambil role_id
+            $this->role_id = $role_id; // assign ke variabel object agar bisa di ambil di anonymous function
 
-        $this->data['menus'] = $this->menus($this->role_id); // Query data modul ke database
+            $this->data['menus'] = $this->menus($role_id); // Query data modul ke database
+        }
 
         if (empty($before))
             $before = $this->CI->config->item('views_before');
 
-        if (!$this->CI->input->is_ajax_request())
+        if (!$this->CI->input->is_ajax_request()) {
+
+            // data yang akan di kirim ke view 'sebelum'
+            $this->data['variabelnya'] = 'datanya';
+
             foreach ($before as $before)
                 if (is_string($before))
                     $this->CI->load->view($before, $this->data);
+        }
 
         $closure();
+
+        // Swal
+        if ($swal = $this->CI->session->flashdata('Swal')) {
+            $data['swal'] = $swal;
+            $this->CI->load->view('custom_alert/sweetalert', $data);
+
+            if ($this->CI->input->is_ajax_request())
+                unset($_SESSION['Swal']);
+        }
+        // Swal(end)
+
+        // toastr
+        if ($toastr = $this->CI->session->flashdata('toastr')) {
+            $data['toastr'] = $toastr;
+            $this->CI->load->view('custom_alert/toastr', $data);
+
+            if ($this->CI->input->is_ajax_request())
+                unset($_SESSION['toastr']);
+        }
+        // toastr(end)
 
         if (empty($after))
             $after = $this->CI->config->item('views_after');
 
-        if (!$this->CI->input->is_ajax_request())
+        if (!$this->CI->input->is_ajax_request()) {
+
+            // data yang akan di kirim ke view 'sebelum'
+            $this->data['variabelnya'] = 'datanya';
+
             foreach ($after as $after)
                 if (is_string($after))
                     $this->CI->load->view($after, $this->data);
+        }
     }
 
     /**
@@ -93,13 +125,9 @@ class MY_Loader extends CI_Loader
         $this->CI->db->select($this->CI->M_menu->table . '.*'); // Select * dari tabel menu saja (jangan select apapun dari tabel menu_role)
         $this->CI->db->order_by('order');
 
-        // Jika role user adalah developer, maka tampilkan semua menu
-        if ($this->CI->session->userdata('role') == 'Developer') {
-            $menus = $this->CI->M_menu->find(['parent_id' => $parent_id])->result_array();
-        } else {
-            $this->CI->M_menu_role->joinMenu(); // join dengan tabel menu
-            $menus = $this->CI->M_menu_role->find(['role_id' => $role_id, 'parent_id' => $parent_id])->result_array();
-        }
+        $this->CI->M_menu_role->joinMenu(); // join dengan tabel menu
+        $menus = $this->CI->M_menu_role->find(['role_id' => $role_id, 'parent_id' => $parent_id])->result_array();
+
         // ^^ SELECT menu.* FROM menu_role JOIN menu ON menus.id = menu_id WHERE ...
 
         // Menambahkan child &&

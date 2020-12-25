@@ -26,19 +26,6 @@ class MY_Model extends CI_Model
     public $primaryKey = 'id';
 
     /**
-     * Nama nama field
-     * 
-     * @var array $fields
-     */
-    protected $fields = [
-        'id' => [
-            'type' => 'INTEGER',
-            'constraint' => 11,
-            'auto_increment' => true,
-        ],
-    ];
-
-    /**
      * Data seeding
      * 
      * @var array $seed
@@ -46,18 +33,11 @@ class MY_Model extends CI_Model
     protected $seed_data = [];
 
     /**
-     * Array untuk menambah key saat migrasi
+     * Data seeding dummy
      * 
-     * @var array $add_key
+     * @var array $seed
      */
-    protected $add_keys;
-
-    /**
-     * Array untuk menambah field saat migrasi
-     * 
-     * @var array $add_field
-     */
-    protected $add_fields;
+    protected $dumy_data = [];
 
     /**
      * Fungsi yang pertamakali di jalankan
@@ -73,22 +53,26 @@ class MY_Model extends CI_Model
     /**
      * Ambil semua data
      * 
+     * @param int $limit
+     * @param int $offset
      * @return CI_DB_result::class query result
      */
-    public function all()
+    public function all(int $limit = null, int $offset = null)
     {
-        return $this->db->get($this->table);
+        return $this->db->get($this->table, $limit, $offset);
     }
 
     /**
      * Ambil data berdasarkan field (get_where)
      * 
      * @param array $where
+     * @param int $limit
+     * @param int $offset
      * @return CI_DB_result::class query result
      */
-    public function find(array $where)
+    public function find(array $where, int $limit = null, int $offset = null)
     {
-        return $this->db->get_where($this->table, $where);
+        return $this->db->get_where($this->table, $where, $limit, $offset);
     }
 
     /**
@@ -120,39 +104,38 @@ class MY_Model extends CI_Model
     }
 
     /**
-     * Migrasi database
+     * Seeding database
      * 
+     * --Info--
+     * Hanya bisa dijalankan di class Seed
+     * 
+     * @param object $class isi $this
      * @return void
      */
-    public function migrate()
+    public function seed(object $class)
     {
-        $this->dbforge->add_field($this->fields);
-        $this->dbforge->add_key($this->primaryKey, true);
-
-        if (isset($this->add_keys))
-            foreach ($this->add_keys as $key)
-                $this->dbforge->add_key($key['key'], $key['primary']);
-
-        if (isset($this->add_fields))
-            foreach ($this->add_fields as $field)
-                $this->dbforge->add_field($field);
-
-        if ($this->dbforge->create_table($this->table))
-            echo "\033[0;32mTabel {$this->table} berhasil dibuat\033[0m\n";
-        else
-            echo "\033[0;31mTabel {$this->table} berhasil dibuat\033[0m\n";
+        if (get_class($class) == 'Seed' && !empty($this->seed_data))
+            if ($this->db->insert_batch($this->table, $this->seed_data))
+                echo "\033[0;32mData tabel {$this->table} berhasil ditambahkan\033[0m\n";
+            else
+                echo "\033[0;31mData tabel {$this->table} gagal ditambahkan\033[0m\n";
     }
 
     /**
-     * Seeding database
+     * Seeding dummy database
      * 
+     * --Info--
+     * Hanya bisa dijalankan di class Seed
+     * 
+     * @param object $class isi $this
      * @return void
      */
-    public function seed()
+    public function dummy(object $class)
     {
-        if ($this->db->insert_batch($this->table, $this->seed_data))
-            echo "\033[0;32mData tabel {$this->table} berhasil ditambahkan\033[0m\n";
-        else
-            echo "\033[0;31mData tabel {$this->table} gagal ditambahkan\033[0m\n";
+        if (get_class($class) == 'Seed' && !empty($this->dummy_data))
+            if ($this->db->insert_batch($this->table, $this->dummy_data))
+                echo "\033[0;32mData tabel {$this->table} berhasil ditambahkan\033[0m\n";
+            else
+                echo "\033[0;31mData tabel {$this->table} gagal ditambahkan\033[0m\n";
     }
 }
